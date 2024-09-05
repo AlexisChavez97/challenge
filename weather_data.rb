@@ -1,19 +1,23 @@
 # frozen_string_literal: true
 
-require_relative "data_processor"
+require_relative "data_processable"
 
 class WeatherData
-  include DataProcessor
+  include DataProcessable
 
   SKIP_LINES_COUNT = 5
-  
-  def smallest_temperature_spread
+
+  def initialize(file_path:)
+    setup_data(file_path)
+  end
+
+  def min_temperature_spread_day
     min_spread = Float::INFINITY
     day_with_min_spread = nil
 
     data.each do |day_entry|
       spread = day_entry[:max_temp] - day_entry[:min_temp]
-      
+
       if spread < min_spread
         min_spread = spread
         day_with_min_spread = day_entry[:day]
@@ -38,4 +42,4 @@ end
 
 # Usage
 weather_data = WeatherData.new(file_path: "data/w_data.dat")
-puts weather_data.smallest_temperature_spread
+puts weather_data.min_temperature_spread_day

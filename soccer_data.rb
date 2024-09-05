@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
-require_relative "data_processor"
+require_relative "data_processable"
 
 class SoccerData
-  include DataProcessor
-  
+  include DataProcessable
+
   SKIP_LINES_COUNT = 2
   TEAMS_IN_LEAGUE = 20
 
-  def smallest_goal_difference
+  def initialize(file_path:)
+    setup_data(file_path)
+  end
+
+  def min_goal_difference_team
     min_difference = Float::INFINITY
     team_with_min_difference = nil
 
@@ -44,4 +48,4 @@ end
 
 # Usage
 soccer_data = SoccerData.new(file_path: "data/soccer.dat")
-puts soccer_data.smallest_goal_difference
+puts soccer_data.min_goal_difference_team
