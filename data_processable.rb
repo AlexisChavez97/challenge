@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module DataProcessor
+module DataProcessable
   attr_reader :file_path, :data
-
-  def initialize(file_path:)
+  
+  def setup_data(file_path)
     @file_path = file_path
     @data = []
     read_data
